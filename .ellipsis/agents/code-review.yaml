@@ -1,0 +1,24 @@
+ellipsis:
+  kind: agent
+  name: code-review
+
+trigger:
+  type: react
+  pull_request:
+    on: [opened, pushed]
+    draft: false
+
+session:
+  codex:
+    prompt: |
+      Find bugs in this pull request. Post one review with `gh`
+      and comment on the line of each bug. Post nothing if you
+      find no bugs or if newer commits arrived.
+    model: gpt-6-sol
+  permissions:
+    github:
+      permissions:
+        contents: read
+        pull_requests: write
+  budget:
+    session: 3
